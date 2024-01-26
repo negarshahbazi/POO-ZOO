@@ -1,16 +1,16 @@
 <?php
 abstract class Enclos
-{
+{protected $id;
     protected $nom;
     protected $propreté;
     // pouvant prendre comme valeur : mauvaise, correcte, bonne
     protected $nombre = 0;
     protected $animals = [];
 
-    public function __construct($name)
+    public function __construct($data)
     {
-        $this->nom = $name;
-        $this->propreté = 'good';
+        $this->nom = $data['type'];
+        $this->propreté = $data['propreté'];
     }
     // method
     public function addAnimal(Animaux $animal)
@@ -24,7 +24,12 @@ abstract class Enclos
     }
     public function removeAnimal(Animaux $animal)
     {
-        $this->nombre--;
+        if($this->nombre>=1){
+            $this->nombre--; 
+        }else {
+            echo "c'est vide";
+        }
+       
     }
 
     public function entretenirSiEstVide()
@@ -39,7 +44,17 @@ abstract class Enclos
 
     abstract public function afficherSesCaractéristiques();
 
-    abstract public function afficherSesCaractéristiquesAnimaux(Animaux $animal);
+    public function afficherSesCaractéristiquesAnimaux(Animaux $animal){
+        $carAnimal = [];
+          $carAnimal[] = $animal->getPoids();
+          $carAnimal[] = $animal->getTaille();
+          $carAnimal[] = $animal->getNom();
+          $carAnimal[] = $animal->getAge();
+          $carAnimal[] = $animal->getIsFaim();
+          $carAnimal[] = $animal->getIsDormir();
+          $carAnimal[] = $animal->getIsMalad();
+    return   $carAnimal;
+    }
 
 
 
@@ -77,4 +92,24 @@ abstract class Enclos
     {
         return $this->animals;
     }
+
+/**
+ * Get the value of id
+ */ 
+public function getId()
+{
+return $this->id;
+}
+
+/**
+ * Set the value of id
+ *
+ * @return  self
+ */ 
+public function setId($id)
+{
+$this->id = $id;
+
+return $this;
+}
 }

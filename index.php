@@ -1,16 +1,53 @@
 <?php
-// require_once('./config/autoload.php');
-// require_once('./config/db.php');
+require_once('./config/autoloader.php');
+require_once('./config/db.php');
+var_dump($_SESSION['enclos_id']);
+var_dump($_SESSION['zoo_id']);
+// zoo
+if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nomZoo'])&&!empty($_POST['nomZoo'])&&isset($_POST['nom_employee'])&&!empty($_POST['nom_employee'])&&isset($_POST['submit'])){
+   
+    $zoo=new ZooManager($db);
+    $zoo->add(new zoo([
+        'nomZoo' => $_POST['nomZoo'],
+        'nom_employee' => $_POST['nom_employee'],
+      ]));
+      echo "test";
+}
+// employee
+if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nom'])&&!empty($_POST['nom'])&&isset($_POST['ageEmployee'])&&!empty($_POST['ageEmployee'])&&isset($_POST['submit'])){
+  
+    $employee=new EmployeManager($db);
+    $employee->add(new Employee([
+        'nom' => $_POST['nom'],
+        'ageEmployee' => $_POST['ageEmployee'],
+        'sexe' => $_POST['sexe'],
+      ]));
+}
+// enclos
+if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['type'])&&!empty($_POST['type'])&&isset($_POST['propreté'])&&!empty($_POST['propreté'])&&isset($_POST['submit'])){
 
-
-
+    $enclosType = $_POST['type'];
+  
+    $employee=new EnclosManager($db);
+    $employee->add(new $enclosType([
+        'type' => $_POST['type'],
+        'propreté' => $_POST['propreté'],
+      ]));
+}
+// animal
+if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nomAnimal'])&&!empty($_POST['nomAnimal'])&&isset($_POST['age'])&&!empty($_POST['age'])&&isset($_POST['taille'])&&!empty($_POST['taille'])&&isset($_POST['poids'])&&!empty($_POST['poids'])&&isset($_POST['submit'])){
+   
+    $animalType = $_POST['nomAnimal'];
+  
+    $employee=new AnimalManager($db);
+    $employee->add(new $animalType([
+        'nomAnimal' => $_POST['nomAnimal'],
+        'age' => $_POST['age'],
+        'taille' => $_POST['taille'],
+        'poids' => $_POST['poids'],
+      ]));
+}
 ?>
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,59 +60,88 @@
 </head>
 
 <body class="background">
-    <form action="">
+    <form action="" method="post">
         <div class="card text-center">
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs">
                     <li class="nav-item">
-                        <a class="nav-link  activ" href="#">ZOO</a>
+                        <a class="nav-link  btnzoo activ" href="#">ZOO</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="#">Add Employée</a>
+                        <a class="nav-link btnemployee" href="#">Add Employée</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Add Enclos</a>
+                        <a class="nav-link btnenclos" href="#">Add Enclos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Add Animal</a>
+                        <a class="nav-link btnanimal" href="#">Add Animal</a>
                     </li>
                 </ul>
             </div>
-            <div class="card-body d-flex flex-column justify-content-center align-items-center">
+<!-- zoo -->
+            <div class="card-body d-none flex-column justify-content-center align-items-center zoo">
                 <h5 class="card-title">Caractéristiques ZOO:</h5>
-                <input type="text" name="nom" value="" placeholder="Nom du zoo:">
-                <input type="text" name="Un_nombre_maximal_denclos" value="" placeholder="Un nombre maximal d'enclos:">
-                <a href="#" class="btn btn-primary m-2">Valid</a>
+                <input type="text" name="nomZoo" value="" placeholder="Nom du zoo:">
+                <input type="text" name="Un_nombre_maximal_denclos" value="5" placeholder="Un nombre maximal d'enclos:">
+                <input type="text" name="nom_employee" value="" placeholder="nom_employee:">
+
+                <button class="btn btn-primary m-2" name="submit" type="submit">valid</button>
             </div>
-            <div class="card-body d-flex flex-column justify-content-center align-items-center">
+<!-- employee -->
+            <div class="card-body d-none flex-column justify-content-center align-items-center employee">
                 <h5 class="card-title">Caractéristiques Employée:</h5>
                 <input type="text" name="nom" value="" placeholder="Nom:">
-                <input type="text" name="Un_nombre_maximal_denclos" value="" placeholder="âge:">
-                <input type="text" name="Un_nombre_maximal_denclos" value="" placeholder="sexe:">
-                <a href="#" class="btn btn-primary m-2">Valid</a>
+                <input type="text" name="ageEmployee" value="" placeholder="âge:">
+                sexe:<select name="sexe" id="">
+                    <option value="Femme">Femme</option>
+                    <option value="Homme">Homme</option>
+                   
+                </select>
+                <button class="btn btn-primary m-2 " name="submit" type="submit">valid</button>
             </div>
-            <div class="card-body d-flex flex-column justify-content-center align-items-center">
+<!-- enclos -->
+            <div class="card-body d-none flex-column justify-content-center align-items-center enclos">
                 <h5 class="card-title">Caractéristiques Enclos:</h5>
-                <input type="text" name="nom" value="" placeholder="Nom:">
-                pro<select name="propreté" id="">
+                Nom:<select name="type" id="">
+                    <option value="Aquariums">Aquariums</option>
+                    <option value="Terr">Terr</option>
+                    <option value="Volières">Volieres</option>
+                </select>
+                degré de propreté:<select name="propreté" id="">
                     <option value="mauvaise">mauvaise</option>
                     <option value="correcte">correcte</option>
                     <option value="bonne">bonne</option>
                 </select>
-                <a href="#" class="btn btn-primary m-2">Valid</a>
+                <button class="btn btn-primary m-2 " name="submit" type="submit">valid</button>
             </div>
-            <div class="card-body d-flex flex-column justify-content-center align-items-center">
+<!-- animal -->
+            <div class="card-body d-none flex-column justify-content-center align-items-center animal">
                 <h5 class="card-title">Caractéristiques Animal:</h5>
-                <input type="text" name="nom" value="" placeholder="Nom de l'espèce:">
-                <input type="text" name="nom" value="" placeholder="âge:">
-                <input type="text" name="nom" value="" placeholder="taille:">
-                <input type="text" name="nom" value="" placeholder=" poids:">
-              
-                
-                <a href="#" class="btn btn-primary m-2">Valid</a>
+                </select>
+                Nom de l'espèce:<select name="nomAnimal" id="">
+                    <option value="Tiger">Tigers</option>
+                    <option value="Poisson">Poissons</option>
+                    <option value="Our">Ours</option>
+                    <option value="Aigle">Aigles</option>
+                </select>
+                <input type="text" name="age" value="" placeholder="âge:">
+                <input type="text" name="taille" value="" placeholder="taille:">
+                <input type="text" name="poids" value="" placeholder=" poids:">
+
+                <button class="btn btn-primary m-2 " name="submit" type="submit">valid</button>
             </div>
         </div>
     </form>
+
+<div class="row">
+    <div class="col-4"></div>
+    <div class="col-4"><img class="myPic"src="./images/zooo.webp" alt=""></div>
+    <div class="col-4"></div>
+</div>
+
+
+
+    <script src="./main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 

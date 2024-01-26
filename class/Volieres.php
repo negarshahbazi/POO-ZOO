@@ -1,13 +1,12 @@
 <?php
-class Voliéres extends Enclos{
+class Volieres extends Enclos{
    protected $hauteur;
    
    public function getHauteur(){
     return $this->hauteur;
     }
 
-public function __construct($name, $hauteur) {
-    parent::__construct($name);
+public function setHauteur($hauteur) {
     $this->hauteur = $hauteur;
 }
 
@@ -26,17 +25,7 @@ public function afficherSesCaractéristiques(){
     $car[] = $this->getNombre();
 return $car;
 }
-public function afficherSesCaractéristiquesAnimaux(Animaux $animal){
-    $carAnimal = [];
-      $carAnimal[] = $animal->getPoids();
-      $carAnimal[] = $animal->getTaille();
-      $carAnimal[] = $animal->getNom();
-      $carAnimal[] = $animal->getAge();
-      $carAnimal[] = $animal->getIsFaim();
-      $carAnimal[] = $animal->getIsDormir();
-      $carAnimal[] = $animal->getIsMalad();
-return   $carAnimal;
-}
+
 
     
 }

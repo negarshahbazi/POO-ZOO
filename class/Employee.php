@@ -1,14 +1,15 @@
 <?php
 
-abstract class Employee extends Enclos{
-    protected string $name;
-    protected int $age;
-    protected string $sexe;
+ class Employee{
+    
+  private string $name;
+  private int $age;
+  private string $sexe;
 
-    public function __construct($name, $age, $sexe) {
-        $this->name = $name;
-        $this->age = $age;
-        $this->sexe = $sexe;
+    public function __construct($employee) {
+        $this->name = $employee['nom'];
+        $this->age = $employee['ageEmployee'];
+        $this->sexe = $employee['sexe'];
     }
     //////// GETTER & SETTER ////////
     public function setName($name) {
@@ -40,8 +41,8 @@ abstract class Employee extends Enclos{
     //////// METHODS ////////
 public function examiner(Enclos $enclos,Animaux $animal){
     $table=[];
-    $table=$this->afficherSesCaractéristiques();
-    $table=$this->afficherSesCaractéristiquesAnimaux($animal);
+    $table=$enclos->afficherSesCaractéristiques();
+    $table=$enclos->afficherSesCaractéristiquesAnimaux($animal);
     return $table;
 }
    public function feedAnimal(Animaux $animal) {
@@ -58,11 +59,11 @@ public function examiner(Enclos $enclos,Animaux $animal){
     }
     public function removeAnimalFromEnclos(Animaux $animal, Enclos $enclos) {
         // Implementation to remove an animal from the enclosure
-       $this->removeAnimal($animal);
+       $enclos->removeAnimal($animal);
     }
  public function addAnimalToEnclos(Animaux $animal, Enclos $enclos) {
         // Implementation to add an animal to the enclosure
-        $this->addAnimal($animal);
+        $enclos->addAnimal($animal);
     }
     public function cleanEnclos(Enclos $enclos)
     {if($enclos->getPropreté()==="mauvaise"||$enclos->getNombre()===0){

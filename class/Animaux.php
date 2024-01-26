@@ -12,12 +12,12 @@ abstract class Animaux
     protected bool $isMalad = false;
 
 
-    public function __construct($poids, $taille, $nom, $age)
+    public function __construct($data)
     {
-        $this->poids = $poids;
-        $this->taille = $taille;
-        $this->nom = $nom;
-        $this->age = $age;
+        $this->poids =$data['poids'];
+        $this->taille =$data['taille'];
+        $this->nom =$data['nomAnimal'];
+        $this->age =$data['age'];
     }
 
 
