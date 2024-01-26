@@ -1,13 +1,15 @@
 .background {
 background-color: aquamarine;
+background-image: url(./images/ax.webp);
   background-attachment: fixed;
   background-position: center;
+  background-repeat: no-repeat;
 }
 
 .myPic{
-width: 300px;
- 
-    /* left:50%;
-    top:50% */
+width: 100px;
+ left:90%;
+padding: 0;
+margin: 0%;
 
 }

@@ -5,7 +5,7 @@ abstract class Animaux
 
     protected int $poids;
     protected int $taille;
-    protected string $nom;
+    protected string $nomAnimal;
     protected int $age;
     protected bool $isFaim = true;
     protected bool $isDormir = false;
@@ -16,7 +16,7 @@ abstract class Animaux
     {
         $this->poids =$data['poids'];
         $this->taille =$data['taille'];
-        $this->nom =$data['nomAnimal'];
+        $this->nomAnimal =$data['nom_de_espece'];
         $this->age =$data['age'];
     }
 
@@ -41,13 +41,13 @@ abstract class Animaux
         return $this->taille;
     }
 
-    public function setNom($nom)
+    public function setNomAnimal($nom)
     {
-        return $this->nom=$nom;
+        return $this->nomAnimal=$nom;
     }
-    public function getNom()
+    public function getNomAnimal()
     {
-        return $this->nom;
+        return $this->nomAnimal;
     }
 
     public function setAge($age)
@@ -124,6 +124,6 @@ abstract class Animaux
 
     public function displayInfo()
     {
-        return "nom: {$this->nom}, poids: {$this->poids} kg, taille: {$this->taille} m, age: {$this->age} years";
+        return "nom: {$this->nomAnimal}, poids: {$this->poids} kg, taille: {$this->taille} m, age: {$this->age} years";
     }
 }

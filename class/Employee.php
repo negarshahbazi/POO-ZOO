@@ -2,21 +2,21 @@
 
  class Employee{
     
-  private string $name;
+  private string $nameEmployee;
   private int $age;
   private string $sexe;
 
     public function __construct($employee) {
-        $this->name = $employee['nom'];
+        $this->nameEmployee = $employee['nom'];
         $this->age = $employee['ageEmployee'];
         $this->sexe = $employee['sexe'];
     }
     //////// GETTER & SETTER ////////
-    public function setName($name) {
-        return $this->name=$name;
+    public function setNameEmployee($name) {
+        return $this->nameEmployee=$name;
     }
-    public function getName() {
-        return $this->name;
+    public function getNameEmployee() {
+        return $this->nameEmployee;
     }
 
     

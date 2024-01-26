@@ -12,13 +12,13 @@ class EmployeManager {
 
         $query = $this->db->prepare("INSERT INTO employee (nom,age,sexe,zoo_id) VALUES (:nom,:age,:sexe,:zoo_id) ");
         $query->execute([
-            ':nom' =>$employe->getName(),
+            ':nom' =>$employe->getNameEmployee(),
             ':age'=> $employe->getAge(),
             ':sexe'=>$employe->getSexe(),
             ':zoo_id'=> $_SESSION['zoo_id']
            	
         ]);
-       
+        $query->fetch();
       
        
     }

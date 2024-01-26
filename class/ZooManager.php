@@ -18,6 +18,7 @@ class ZooManager {
             ':max_enclos'=>5,
            	
         ]);
+        $query->fetch();
         $id = $this->db->lastInsertId();
         $zoo->setId($id);
         $_SESSION['zoo_id']=$id;

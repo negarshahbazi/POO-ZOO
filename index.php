@@ -1,51 +1,52 @@
 <?php
 require_once('./config/autoloader.php');
 require_once('./config/db.php');
-var_dump($_SESSION['enclos_id']);
-var_dump($_SESSION['zoo_id']);
+
 // zoo
-if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nomZoo'])&&!empty($_POST['nomZoo'])&&isset($_POST['nom_employee'])&&!empty($_POST['nom_employee'])&&isset($_POST['submit'])){
-   
-    $zoo=new ZooManager($db);
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nomZoo']) && !empty($_POST['nomZoo']) && isset($_POST['nom_employee']) && !empty($_POST['nom_employee']) && isset($_POST['submit'])) {
+
+    $zoo = new ZooManager($db);
     $zoo->add(new zoo([
         'nomZoo' => $_POST['nomZoo'],
         'nom_employee' => $_POST['nom_employee'],
-      ]));
-      echo "test";
+    ]));
+  
 }
 // employee
-if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nom'])&&!empty($_POST['nom'])&&isset($_POST['ageEmployee'])&&!empty($_POST['ageEmployee'])&&isset($_POST['submit'])){
-  
-    $employee=new EmployeManager($db);
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nom']) && !empty($_POST['nom']) && isset($_POST['ageEmployee']) && !empty($_POST['ageEmployee']) && isset($_POST['submit'])) {
+
+    $employee = new EmployeManager($db);
     $employee->add(new Employee([
         'nom' => $_POST['nom'],
         'ageEmployee' => $_POST['ageEmployee'],
         'sexe' => $_POST['sexe'],
-      ]));
+    ]));
 }
 // enclos
-if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['type'])&&!empty($_POST['type'])&&isset($_POST['propreté'])&&!empty($_POST['propreté'])&&isset($_POST['submit'])){
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['type']) && !empty($_POST['type']) && isset($_POST['propreté']) && !empty($_POST['propreté']) && isset($_POST['submit'])) {
 
     $enclosType = $_POST['type'];
-  
-    $employee=new EnclosManager($db);
+
+    $employee = new EnclosManager($db);
+    // var_dump($_SESSION['zoo_id']);
     $employee->add(new $enclosType([
         'type' => $_POST['type'],
         'propreté' => $_POST['propreté'],
-      ]));
+    ]));
 }
-// animal
-if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nomAnimal'])&&!empty($_POST['nomAnimal'])&&isset($_POST['age'])&&!empty($_POST['age'])&&isset($_POST['taille'])&&!empty($_POST['taille'])&&isset($_POST['poids'])&&!empty($_POST['poids'])&&isset($_POST['submit'])){
-   
-    $animalType = $_POST['nomAnimal'];
-  
-    $employee=new AnimalManager($db);
+// // animal
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nom_de_espece']) && !empty($_POST['nom_de_espece']) && isset($_POST['age']) && !empty($_POST['age']) && isset($_POST['taille']) && !empty($_POST['taille']) && isset($_POST['poids']) && !empty($_POST['poids']) && isset($_POST['submit'])) {
+
+    $animalType = $_POST['nom_de_espece'];
+
+    $employee = new AnimalManager($db);
+    // var_dump($_SESSION['enclos_id']);
     $employee->add(new $animalType([
-        'nomAnimal' => $_POST['nomAnimal'],
+        'nom_de_espece' => $_POST['nom_de_espece'],
         'age' => $_POST['age'],
-        'taille' => $_POST['taille'],
         'poids' => $_POST['poids'],
-      ]));
+        'taille' => $_POST['taille'],
+    ]));
 }
 ?>
 <!DOCTYPE html>
@@ -61,24 +62,30 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nomAnimal'])&&!empty($_
 
 <body class="background">
     <form action="" method="post">
-        <div class="card text-center">
-            <div class="card-header">
-                <ul class="nav nav-tabs card-header-tabs">
-                    <li class="nav-item">
-                        <a class="nav-link  btnzoo activ" href="#">ZOO</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btnemployee" href="#">Add Employée</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btnenclos" href="#">Add Enclos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btnanimal" href="#">Add Animal</a>
-                    </li>
-                </ul>
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="card text-center">
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link  btnzoo activ" href="#">ZOO</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btnemployee" href="#">Add Employée</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btnenclos" href="#">Add Enclos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btnanimal" href="#">Add Animal</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-<!-- zoo -->
+            <div>
+                <img class="myPic" src="./images/zooo.webp" alt="">
+            </div>
+      
+            <!-- zoo -->
             <div class="card-body d-none flex-column justify-content-center align-items-center zoo">
                 <h5 class="card-title">Caractéristiques ZOO:</h5>
                 <input type="text" name="nomZoo" value="" placeholder="Nom du zoo:">
@@ -87,7 +94,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nomAnimal'])&&!empty($_
 
                 <button class="btn btn-primary m-2" name="submit" type="submit">valid</button>
             </div>
-<!-- employee -->
+            <!-- employee -->
             <div class="card-body d-none flex-column justify-content-center align-items-center employee">
                 <h5 class="card-title">Caractéristiques Employée:</h5>
                 <input type="text" name="nom" value="" placeholder="Nom:">
@@ -95,17 +102,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nomAnimal'])&&!empty($_
                 sexe:<select name="sexe" id="">
                     <option value="Femme">Femme</option>
                     <option value="Homme">Homme</option>
-                   
+
                 </select>
                 <button class="btn btn-primary m-2 " name="submit" type="submit">valid</button>
             </div>
-<!-- enclos -->
+            <!-- enclos -->
             <div class="card-body d-none flex-column justify-content-center align-items-center enclos">
                 <h5 class="card-title">Caractéristiques Enclos:</h5>
                 Nom:<select name="type" id="">
                     <option value="Aquariums">Aquariums</option>
                     <option value="Terr">Terr</option>
-                    <option value="Volières">Volieres</option>
+                    <option value="Volieres">Volieres</option>
                 </select>
                 degré de propreté:<select name="propreté" id="">
                     <option value="mauvaise">mauvaise</option>
@@ -114,17 +121,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nomAnimal'])&&!empty($_
                 </select>
                 <button class="btn btn-primary m-2 " name="submit" type="submit">valid</button>
             </div>
-<!-- animal -->
+            <!-- animal -->
             <div class="card-body d-none flex-column justify-content-center align-items-center animal">
                 <h5 class="card-title">Caractéristiques Animal:</h5>
                 </select>
-                Nom de l'espèce:<select name="nomAnimal" id="">
-                    <option value="Tiger">Tigers</option>
-                    <option value="Poisson">Poissons</option>
-                    <option value="Our">Ours</option>
-                    <option value="Aigle">Aigles</option>
+                Nom de l'espèce:<select name="nom_de_espece" id="">
+                    <option value="Tigres">Tigres</option>
+                    <option value="Poissons">Poissons</option>
+                    <option value="Ours">Ours</option>
+                    <option value="Aigles">Aigles</option>
                 </select>
-                <input type="text" name="age" value="" placeholder="âge:">
+                <input type="text" name="age" value="" placeholder="age:">
                 <input type="text" name="taille" value="" placeholder="taille:">
                 <input type="text" name="poids" value="" placeholder=" poids:">
 
@@ -133,11 +140,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nomAnimal'])&&!empty($_
         </div>
     </form>
 
-<div class="row">
-    <div class="col-4"></div>
-    <div class="col-4"><img class="myPic"src="./images/zooo.webp" alt=""></div>
-    <div class="col-4"></div>
-</div>
+   <div><h1>Bienvenue dans <?php echo $zoo->getName()?></h1></div>
 
 
 

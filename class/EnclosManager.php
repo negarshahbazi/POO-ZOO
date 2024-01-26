@@ -18,13 +18,13 @@ class EnclosManager {
             ':zoo_id'=> $_SESSION['zoo_id'],
             ':nombre'=>$enclos->getNombre()	
         ]);
-       
+        $query->fetch();
         $id = $this->db->lastInsertId();
         $enclos->setId($id);
         $_SESSION['enclos_id']=$id;
-       
+     
     }
-
+    
 }
 
 
