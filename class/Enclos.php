@@ -1,6 +1,6 @@
 <?php
 abstract class Enclos
-{protected $id;
+{   protected $id;
     protected $nom;
     protected $propreté;
     // pouvant prendre comme valeur : mauvaise, correcte, bonne
@@ -9,36 +9,26 @@ abstract class Enclos
 
     public function __construct($data)
     {
-        $this->nom = $data['type'];
-        $this->propreté = $data['propreté'];
+        $this->nom = $data['nom'];
+        $this->propreté = $data['degre_de_proprete'];
     }
     // method
-    public function addAnimal(Animaux $animal)
-    {
-        if ($this->nombre < 6) {
-            $this->animals[] = $animal;
-            $this->nombre++;
-        } else {
-            echo "Cannot add the animal to this enclos.";
-        }
-    }
+    abstract public function addAnimal(Animaux $animal);
+    
     public function removeAnimal(Animaux $animal)
     {
-        if($this->nombre>=1){
-            $this->nombre--; 
+        if(count($this->animals)>=1){
+            array_slice($this->animals,-1);
+            $this->nombre=count($this->animals);
+          
         }else {
             echo "c'est vide";
         }
        
     }
 
-    public function entretenirSiEstVide()
-    {
-        if ($this->nombre === 0) {
-            $this->setPropreté('bonne');
-        }
-        return $this->getPropreté();
-    }
+    abstract public function entretenirSiEstVide();
+   
 
 
 
@@ -48,7 +38,7 @@ abstract class Enclos
         $carAnimal = [];
           $carAnimal[] = $animal->getPoids();
           $carAnimal[] = $animal->getTaille();
-          $carAnimal[] = $animal->getNom();
+          $carAnimal[] = $animal->getNomAnimal();
           $carAnimal[] = $animal->getAge();
           $carAnimal[] = $animal->getIsFaim();
           $carAnimal[] = $animal->getIsDormir();
@@ -104,12 +94,12 @@ return $this->id;
 /**
  * Set the value of id
  *
- * @return  self
+ *
  */ 
 public function setId($id)
 {
 $this->id = $id;
 
-return $this;
+
 }
 }

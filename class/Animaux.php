@@ -2,7 +2,7 @@
 abstract class Animaux
 {
 
-
+    protected int $id;
     protected int $poids;
     protected int $taille;
     protected string $nomAnimal;
@@ -14,10 +14,35 @@ abstract class Animaux
 
     public function __construct($data)
     {
-        $this->poids =$data['poids'];
-        $this->taille =$data['taille'];
-        $this->nomAnimal =$data['nom_de_espece'];
-        $this->age =$data['age'];
+        $this->hydrate($data);
+    }
+
+
+
+    public function hydrate(array $data) {
+
+        if(isset($data['poids'])) {
+            $this->poids =$data['poids'];
+        }
+
+        if(isset($data['taille'])) {
+
+            $this->taille =$data['taille'];
+        }
+
+        if(isset($data['nom_de_espece'])) {
+
+            $this->nomAnimal =$data['nom_de_espece'];
+        }
+
+        if(isset($data['age'])) {
+
+            $this->age =$data['age'];
+        }
+
+        if(isset($data['id'])) {
+            $this->id = $data['id'];
+        }
     }
 
 
@@ -125,5 +150,25 @@ abstract class Animaux
     public function displayInfo()
     {
         return "nom: {$this->nomAnimal}, poids: {$this->poids} kg, taille: {$this->taille} m, age: {$this->age} years";
+    }
+
+    /**
+     * Get the value of id
+     */ 
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set the value of id
+     *
+     * @return  self
+     */ 
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
     }
 }

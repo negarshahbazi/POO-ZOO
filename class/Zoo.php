@@ -1,15 +1,14 @@
 <?php
 class Zoo {
 
-    protected $name;
-    protected $employee;
-    protected $maxEnclos;
-    protected $enclos = [];
-    protected $id;
+    private $name;
+    // protected $employee;
+    private $maxEnclos=5;
+    private $enclos = [];
+    private $id;
 
     public function __construct($zoo) {
-        $this->name = $zoo['nomZoo'];
-        $this->employee = $zoo['nom_employee'];
+        $this->name = $zoo['nom_de_zoo'];
        
     }
 
@@ -35,7 +34,11 @@ class Zoo {
                 $animal->setIsMalad(rand(0, 1));
                 $animal->setIsFaim(rand(0,1));
                 $animal->setIsDormir(rand(0,1));
+              
             }
+           $enclo->setHauteur(rand(10,20));
+           $enclo->setSalinite(rand(0,30));
+           $enclo->setPropretée(rand('mauvaise','correct','bonne'));
         }
      
     }
@@ -63,25 +66,25 @@ class Zoo {
         return $this;
     }
 
-    /**
-     * Get the value of employee
-     */ 
-    public function getEmployee()
-    {
-        return $this->employee;
-    }
+    // /**
+    //  * Get the value of employee
+    //  */ 
+    // public function getEmployee()
+    // {
+    //     return $this->employee;
+    // }
 
-    /**
-     * Set the value of employee
-     *
-     * @return  self
-     */ 
-    public function setEmployee($employee)
-    {
-        $this->employee = $employee;
+    // /**
+    //  * Set the value of employee
+    //  *
+    //  * @return  self
+    //  */ 
+    // public function setEmployee($employee)
+    // {
+    //     $this->employee = $employee;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * Get the value of maxEnclos

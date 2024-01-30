@@ -1,14 +1,14 @@
 <?php
 
  class Employee{
-    
+    private $idEmployee;
   private string $nameEmployee;
   private int $age;
   private string $sexe;
 
     public function __construct($employee) {
         $this->nameEmployee = $employee['nom'];
-        $this->age = $employee['ageEmployee'];
+        $this->age = $employee['age'];
         $this->sexe = $employee['sexe'];
     }
     //////// GETTER & SETTER ////////
@@ -76,4 +76,24 @@ public function examiner(Enclos $enclos,Animaux $animal){
     }
    
    
+
+    /**
+     * Get the value of idEmployee
+     */ 
+    public function getIdEmployee()
+    {
+        return $this->idEmployee;
+    }
+
+    /**
+     * Set the value of idEmployee
+     *
+     * @return  self
+     */ 
+    public function setIdEmployee($idEmployee)
+    {
+        $this->idEmployee = $idEmployee;
+
+        return $this;
+    }
 }
