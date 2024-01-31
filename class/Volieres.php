@@ -37,6 +37,8 @@ class Volieres extends Enclos
         if ($animal instanceof Aigles) {
             if ($this->nombre < 6) {
                 $this->animals[] = $animal;
+                // $this->nombre = count($this->animals);
+
                 $this->nombre++;
                 return true;
 

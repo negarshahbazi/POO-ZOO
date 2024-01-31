@@ -21,6 +21,16 @@ class AnimalManager {
            	
         ]);    
     }
+    public function delete($id)
+    {
+
+        $query = $this->db->prepare("DELETE FROM animal WHERE id=:id");
+        $query->execute([
+           ':id'=>$id,
+           	
+        ]);  
+        // return true;  
+    }
     public function findAll(){
         $animalsObjects = [];
         $query = $this->db->prepare("SELECT * FROM animal WHERE enclos_id=:enclos_id ORDER BY id DESC");
@@ -48,11 +58,11 @@ public function find($id){
     $myAnimal=$query->fetch();
     $typeAnimal=$myAnimal['nom_de_espece'];
     $newMyAnimal = new  $typeAnimal($myAnimal);
-    // $newMyAnimal->setId($myAnimal['id']);
-    // $newMyAnimal->setNomAnimal($myAnimal['nom_de_espece']);
-    // $newMyAnimal->setAge($myAnimal['age']);
-    // $newMyAnimal->setPoids($myAnimal['poids']);
-    // $newMyAnimal->setTaille($myAnimal['taille']);
+    $newMyAnimal->setId($myAnimal['id']);
+    $newMyAnimal->setNomAnimal($myAnimal['nom_de_espece']);
+    $newMyAnimal->setAge($myAnimal['age']);
+    $newMyAnimal->setPoids($myAnimal['poids']);
+    $newMyAnimal->setTaille($myAnimal['taille']);
 
     return  $newMyAnimal;
 }

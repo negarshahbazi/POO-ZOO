@@ -14,19 +14,56 @@ abstract class Enclos
     }
     // method
     abstract public function addAnimal(Animaux $animal);
-    
-    public function removeAnimal(Animaux $animal)
-    {
-        if(count($this->animals)>=1){
-            array_slice($this->animals,-1);
-            $this->nombre=count($this->animals);
-          
-        }else {
-            echo "c'est vide";
-        }
+    // 111111111111111111111111111111111111111111111111111111
+    // public function removeAnimal(Animaux $animal)
+    // {
+    //     if(count($this->animals) >= 1){
+    //         foreach($this->animals as $key => $value) {
+    //             array_slice($this->animals, $key, $key);
+    //             // var_dump($this->animals);
+    //             $this->nombre--;
+    //         }
+    //     }else {
+    //         echo "c'est vide";
+    //     }
        
-    }
+    // }
 
+    // 222222222222222222222222222222222222222222222222222222222
+    // public function removeAnimal(Animaux $animal)
+    // {
+    //     $index = array_search($animal, $this->animals); // Find the index of the animal
+    
+    //     if ($index !== false) {
+    //         unset($this->animals[$index]); // Remove the animal from the array
+    //         $this->nombre--; // Decrement the count
+    //     } else {
+    //         echo "L'animal n'est pas présent dans la liste."; // Animal not found
+    //     }
+    // }
+    // 33333333333333333333333333333333333333333333333333333333333333
+    public function removeAnimal(Animaux $animal)
+{
+    // Check if there are animals in the array
+    if(count($this->animals) >= 1){
+        // Iterate over the animals array
+        foreach($this->animals as $key => $value) {
+            // Check if the current animal matches the one we want to remove
+            if ($value === $animal) {
+                // Use unset() to remove the animal from the array
+                unset($this->animals[$key]);
+                // Decrement the count
+                $this->nombre--;
+                return; // Exit the function after removing the animal
+            }
+        }
+        // If the animal is not found in the array
+        echo "L'animal n'est pas présent dans la liste.";
+    } else {
+        // If the array is empty
+        echo "La liste des animaux est vide.";
+    }
+}
     abstract public function entretenirSiEstVide();
    
 
@@ -73,6 +110,10 @@ abstract class Enclos
     public function getNombre()
     {
         return $this->nombre;
+    }
+
+    public function getNumberArray() {
+        return count($this->animals);
     }
     public function setAnimals($animals)
     {

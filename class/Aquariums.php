@@ -34,9 +34,9 @@ class Aquariums extends Enclos
     public function addAnimal(Animaux $animal)
     {
         if ($animal instanceof Poissons) {
-            var_dump('test');
-            if ($this->nombre < 6) {
+            if ($this->nombre < 6){
                 $this->animals[] = $animal;
+                // $this->nombre = count($this->animals);
                 $this->nombre++;
                 return true;
             } else {

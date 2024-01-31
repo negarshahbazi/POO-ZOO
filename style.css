@@ -1,3 +1,6 @@
+@import url('https://fonts.cdnfonts.com/css/adlam-display');
+*{font-family: 'ADLaM Display', sans-serif;}    
+
 .background {
 background-color: aquamarine;
 background-image: url(./images/ax.webp);

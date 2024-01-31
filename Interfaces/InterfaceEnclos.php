@@ -14,8 +14,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['type']) && !empty($_PO
     ]));
     // var_dump($myEnclos);
 }
-// $enclo->update()
 $myEnclos=$enclo->findAll();
+// foreach($myEnclos as $myEnclo){
+//   $enclo->update($myEnclo);  
+// }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

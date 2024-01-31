@@ -1,36 +1,45 @@
 <?php
 require_once('../config/autoloader.php');
 require_once('../config/db.php');
-// var_dump($_POST['cach']);
+
 $idEnclos = isset($_POST['id_enclos']) ? $_POST['id_enclos'] : null;
 
-$enclosManager=new EnclosManager($db);
-$enclos=$enclosManager->find($idEnclos);
+$enclosManager = new EnclosManager($db);
+$enclos = $enclosManager->find($idEnclos);
 
 $myAnimal = new AnimalManager($db);
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nom_de_espece']) && !empty($_POST['nom_de_espece']) && isset($_POST['age']) && !empty($_POST['age']) && isset($_POST['taille']) && !empty($_POST['taille']) && isset($_POST['poids']) && !empty($_POST['poids']) && isset($_POST['submit'])) {
-
     $animalType = $_POST['nom_de_espece'];
-
     $animal = new $animalType([
         'nom_de_espece' => $_POST['nom_de_espece'],
         'age' => $_POST['age'],
         'poids' => $_POST['poids'],
         'taille' => $_POST['taille'],
     ]);
-
-    // var_dump($_SESSION['enclos_id']);
-   
-    // $animal = $myAnimal->find($id);
     $correctAnimal = $enclos->addAnimal($animal);
-    if($correctAnimal) {
+    if ($correctAnimal) {
         $myAnimal->add($animal);
     }
-    $enclosManager->update($enclos);
     // $animal= $myAnimal->find($_POST['id_enclos']);
+    $enclosManager->update($enclos);
 }
 $animals = $myAnimal->findByEnclosure($enclos);
-// var_dump($animals);
+// delete
+
+// var_dump($_POST['id_delete']);
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete']) && isset($_POST['id_delete'])) {
+    $animalIdToDelete = $_POST['id_delete'];
+ 
+    $animalToDelete = $myAnimal->find($animalIdToDelete);
+
+    $enclos->removeAnimal($animalToDelete);
+    $enclosManager->update($enclos);
+    $myAnimal->delete($animalIdToDelete);
+    // var_dump($enclos);
+    // var_dump($enclos);
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -54,14 +63,16 @@ $animals = $myAnimal->findByEnclosure($enclos);
                             <a class="nav-link btnanimal" href="#">Add Animal</a>
                         </li>
                         <li class="nav-item">
-                        <p class=""my-2>Enclos type : <?= $enclos->getNom() ?> </p>
+                        <a class="nav-link " href="./InterfaceEnclos.php">Enclos</a>
+
                         </li>
-                       
+
                     </ul>
                 </div>
             </div>
             <div>
                 <img class="myPic" src="../images/zooo.webp" alt="">
+                <h3 class="" my-2>Enclos type :<br> <?= $enclos->getNom()?> </h3>
             </div>
 
             <!-- animal -->
@@ -77,36 +88,41 @@ $animals = $myAnimal->findByEnclosure($enclos);
                         <option value="Ours">Ours</option>
                         <option value="Aigles">Aigles</option>
                     </select>
-                    
-                    
+
+
                     <input type="text" name="age" value="" placeholder="age:">
                     <input type="text" name="taille" value="" placeholder="taille:">
                     <input type="text" name="poids" value="" placeholder=" poids:">
                     <input type="hidden" name="id_enclos" value="<?= $enclos->getId() ?>">
-                    
+
                     <button class="btn btn-primary m-2 " name="submit" type="submit">valid</button>
                 </form>
             </div>
 
         </div>
     </form>
-    
+
     <?php if (!is_null($animals) && is_array($animals)) { ?>
 
-    <?php foreach ($animals as $animal) { ?>
-        <div class="card col-4" style="width: 18rem;">
-            <img src="../images/<?php echo $animal->getNomAnimal() ?>.webp" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title ">Espece: <?php echo $animal->getNomAnimal() ?></h5>
-                <h5 class="card-title">Age: <?php echo $animal->getAge() ?></h5>
-                <h5 class="card-title">Poids: <?php echo $animal->getPoids() ?></h5>
-                <h5 class="card-title">Taille: <?php echo $animal->getTaille() ?></h5>
+        <?php foreach ($animals as $animal) { ?>
+            <div class="card col-4" style="width: 18rem;">
+                <img src="../images/<?php echo $animal->getNomAnimal() ?>.webp" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title ">Espece: <?php echo $animal->getNomAnimal() ?></h5>
+                    <h5 class="card-title">Age: <?php echo $animal->getAge() ?></h5>
+                    <h5 class="card-title">Poids: <?php echo $animal->getPoids() ?></h5>
+                    <h5 class="card-title">Taille: <?php echo $animal->getTaille() ?></h5>
+                    <h5 class="card-title">id: <?php echo $animal->getId() ?></h5>
 
-                <a href="./InterfaceAnimal.php" class="btn btn-primary">AJOUT ANIMAL</a>
+                    <form method="post">
+                    <input type="hidden" name="id_enclos" value="<?= $enclos->getId() ?>">
+                        <input type="hidden" name="id_delete" value="<?= $animal->getId() ?>">
+                        <button class="btn btn-primary" type="submit" name="delete">DELETE ANIMAL</button>
+                    </form>
+                </div>
             </div>
-        </div>
 
-    <?php } ?>
+        <?php } ?>
     <?php } ?>
 
 

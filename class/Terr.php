@@ -14,8 +14,9 @@ public function addAnimal(Animaux $animal)
     if($animal instanceof Tigres || $animal instanceof Ours){
     if ($this->nombre < 6) {
         $this->animals[] = $animal;
+        // $this->nombre = count($this->animals);
         $this->nombre++;
-        return true;
+        return  true;
 
     }  else {
                 echo "Cannot add the animal to this enclos because there is 6 animals already.";
