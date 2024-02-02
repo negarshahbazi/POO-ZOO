@@ -26,20 +26,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nom_de_espece']) && !e
 $animals = $myAnimal->findByEnclosure($enclos);
 // delete
 
-// var_dump($_POST['id_delete']);
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete']) && isset($_POST['id_delete'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
+    // var_dump($_POST['id_delete']);
     $animalIdToDelete = $_POST['id_delete'];
- 
     $animalToDelete = $myAnimal->find($animalIdToDelete);
-
     $enclos->removeAnimal($animalToDelete);
+    if ($animalToDelete) {
+        $myAnimal->delete($animalIdToDelete);
+    }else {
+        // Handle the case where the animal to delete is not found
+        echo "Animal not found.";
+    }
     $enclosManager->update($enclos);
-    $myAnimal->delete($animalIdToDelete);
-    // var_dump($enclos);
-    // var_dump($enclos);
+  
+
 }
-
-
+// zoo
+// $zoo=new ZooManager($db);
+// $zooo=new Zoo($zoo);
+// $zooo->main();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -58,21 +63,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete']) && isset($_P
             <div class="card text-center">
                 <div class="card-header d-flex">
                     <ul class="nav nav-tabs card-header-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link shadow-lg" href="../index.php">Zoo</a>
+                        </li>
+                    <li class="nav-item">
+                        <a class="nav-link shadow-lg" href="./InterfaceEnclos.php">Enclos</a>
+                        </li>
 
                         <li class="nav-item">
-                            <a class="nav-link btnanimal" href="#">Add Animal</a>
+                            <a class="nav-link btnanimal shadow-lg bg-secondary-subtle" href="#">Add Animal</a>
                         </li>
-                        <li class="nav-item">
-                        <a class="nav-link " href="./InterfaceEnclos.php">Enclos</a>
-
-                        </li>
+                      
 
                     </ul>
                 </div>
             </div>
             <div>
-                <img class="myPic" src="../images/zooo.webp" alt="">
-                <h3 class="" my-2>Enclos type :<br> <?= $enclos->getNom()?> </h3>
+                <img class="myPic " src="../images/zooo.webp" alt="">
+                <h3 class="text-danger placeholder-glow" my-2>Enclos type : <?= $enclos->getNom()?> </h3>
             </div>
 
             <!-- animal -->
@@ -101,18 +109,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete']) && isset($_P
 
         </div>
     </form>
+    <div class="row">
 
     <?php if (!is_null($animals) && is_array($animals)) { ?>
 
         <?php foreach ($animals as $animal) { ?>
-            <div class="card col-4" style="width: 18rem;">
+            <div class="card col-4 bg-primary-subtle" style="width: 18rem; background-image:url(../images/Nouveau/<?php echo $animal->getNomAnimal()?>.webp);">
                 <img src="../images/<?php echo $animal->getNomAnimal() ?>.webp" class="card-img-top" alt="...">
-                <div class="card-body">
+                <!-- <img src="../images/negar/<?php echo $animal->getNomAnimal() ?>.webp"  alt="..."> -->
+                <img src="../images/negar/<?php echo $animal->getNomAnimal() ?>.webp"  alt="...">
+
+                <div class="card-body ">
                     <h5 class="card-title ">Espece: <?php echo $animal->getNomAnimal() ?></h5>
                     <h5 class="card-title">Age: <?php echo $animal->getAge() ?></h5>
                     <h5 class="card-title">Poids: <?php echo $animal->getPoids() ?></h5>
                     <h5 class="card-title">Taille: <?php echo $animal->getTaille() ?></h5>
-                    <h5 class="card-title">id: <?php echo $animal->getId() ?></h5>
+                    <h5 class="card-title">Son: <?php echo $animal->son() ?></h5>
+                    <h5 class="card-title">Mouvement: <?php echo $animal->mouvement() ?></h5>
+                  
+
+
+
+                    <h5 class="card-title text-success">id: <?php echo $animal->getId() ?></h5>
 
                     <form method="post">
                     <input type="hidden" name="id_enclos" value="<?= $enclos->getId() ?>">
@@ -124,7 +142,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete']) && isset($_P
 
         <?php } ?>
     <?php } ?>
-
+    </div>
 
     <script src="./main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

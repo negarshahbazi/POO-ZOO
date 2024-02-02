@@ -9,7 +9,7 @@ class Tigres extends Animaux{
 
     public function mouvement()
     {
-        return "The ours is vagabonder";
+        return "The Tigres is vagabonder";
  
     }
     

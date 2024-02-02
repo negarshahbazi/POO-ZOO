@@ -38,7 +38,7 @@ class Zoo {
             }
            $enclo->setHauteur(rand(10,20));
            $enclo->setSalinite(rand(0,30));
-           $enclo->setPropretée(rand('mauvaise','correct','bonne'));
+        //    $enclo->setPropretée(rand('mauvaise','correct','bonne'));
         }
      
     }

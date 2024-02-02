@@ -3,7 +3,6 @@ require_once('../config/autoloader.php');
 require_once('../config/db.php');
 
 $enclo = new EnclosManager($db);
-
 // enclos
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['type']) && !empty($_POST['type']) && isset($_POST['propreté']) && !empty($_POST['propreté']) && isset($_POST['submit'])) {
     $enclosType= $_POST['type'];
@@ -15,10 +14,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['type']) && !empty($_PO
     // var_dump($myEnclos);
 }
 $myEnclos=$enclo->findAll();
-// foreach($myEnclos as $myEnclo){
-//   $enclo->update($myEnclo);  
-// }
+// employee
+// if(isset($_POST['nettoyer']) && isset($_POST['id_enclos'])){
+//     $enclos= $enclo-> find($_POST['id_enclos']);
+//     $employe=[
+//         'nom'=>$_POST['nomEmployer'],
+//         'age'=>$_POST['nomZoo'],
+//         'sexe'=>$_POST['sexe'],
+//     ];
+//     header('Location: ../class/Employee');
+//     }
+//     $employ=new EmployeManager($db);
+//     $newemployee=new Employee($employe);
+//  $employ->find($_SESSION['employee_id']);
+//     $newemployee-> cleanEnclos($enclos);
 
+// $enclo->update($myEnclo);  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,9 +48,11 @@ $myEnclos=$enclo->findAll();
             <div class="card text-center">
                 <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs">
-                       
+                    <li class="nav-item">
+                            <a class="nav-link btnenclos" href="../index.php">Zoo</a>
+                        </li>
                         <li class="nav-item">
-                            <a class="nav-link btnenclos" href="#">Add Enclos</a>
+                            <a class="nav-link btnenclos bg-secondary-subtle" href="#">Add Enclos</a>
                         </li>
                         
                     </ul>
@@ -71,7 +84,7 @@ $myEnclos=$enclo->findAll();
     </form>
 
 
-<div class="col-4"></div>
+<div class="row mt-5">
 
  <?php foreach($myEnclos as $myEnclo){?>
     <div class="card col-4" style="width: 18rem;">
@@ -84,12 +97,16 @@ $myEnclos=$enclo->findAll();
     <form action="./InterfaceAnimal.php" method="POST" >
             <input type="hidden" name="cach" value="<?php echo $myEnclo->getNom()?>">
             <input type="hidden" name="id_enclos" value="<?= $myEnclo->getId()?>">
-            <button type="submit" class="btn btn-primary">AJOUT ANIMAL</button>
+
+            <button type="submit" class="btn btn-primary m-2">AJOUT ANIMAL</button>
+            <button type="submit" name="nettoyer"class="btn btn-primary">Nettoyer</button>
+
         </form>
   
   </div>
   </div>
 <?php }?> 
+</div>
     <script src="../main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

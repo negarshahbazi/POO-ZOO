@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nom']) && !empty($_POS
                     <ul class="nav nav-tabs card-header-tabs">
                       
                         <li class="nav-item">
-                            <a class="nav-link btnEmployee" href="#">Add Employée</a>
+                            <a class="nav-link btnEmployee bg-secondary-subtle" href="#">Add Employée</a>
                         </li>
                    
                     </ul>
@@ -90,7 +90,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nom']) && !empty($_POS
 </div>
 
 <?php } ?>
+<!-- <form action="./Interfaces/InterfaceEnclos.php" method="post">
+<input type="hidden" name="nomEmployer" value="<?php echo $employe->getNameEmployee()?>">
+<input type="hidden" name="nomZoo" value="<?php echo $employe->getAge()?>">
+<input type="hidden" name="sexe" value="<?php echo $employe->getSexe()?>" >
 
+
+
+</form> -->
     <script src="./main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

@@ -66,7 +66,7 @@ public function examiner(Enclos $enclos,Animaux $animal){
         $enclos->addAnimal($animal);
     }
     public function cleanEnclos(Enclos $enclos)
-    {if($enclos->getPropreté()==="mauvaise"||$enclos->getNombre()===0){
+    {if($enclos->getPropreté()==="mauvaise"|| $enclos->getPropreté()==="correcte" || $enclos->getNombre()===0){
 
       return  $enclos ->setPropreté('bonne');
 
