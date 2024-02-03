@@ -126,6 +126,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
                     <h5 class="card-title">Taille: <?php echo $animal->getTaille() ?></h5>
                     <h5 class="card-title">Son: <?php echo $animal->son() ?></h5>
                     <h5 class="card-title">Mouvement: <?php echo $animal->mouvement() ?></h5>
+                    <h5 class="card-title">Mouvement: <?php echo $animal->getIsFaim()?'A faim':'Rassas' ?></h5>
+
                   
 
 

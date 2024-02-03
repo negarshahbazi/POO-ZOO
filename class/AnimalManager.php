@@ -19,11 +19,16 @@ class AnimalManager {
             ':taille'=>$animal->getTaille(),
             ':enclos_id'=>$_SESSION['enclos_id'],
            	
-        ]);    
+        ]);
+        $id = $this->db->lastInsertId();
+        $animal->setId($id);
+        $_SESSION['animal_id'] = $id;    
     }
+
+
+
     public function delete($id)
     {
-
         $query = $this->db->prepare("DELETE FROM animal WHERE id=:id");
         $query->execute([
            ':id'=>$id,
