@@ -47,11 +47,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nom']) && !empty($_POS
             <div class="card text-center">
                 <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs">
-                      
                         <li class="nav-item">
                             <a class="nav-link btnEmployee bg-secondary-subtle" href="#">Add Employée</a>
                         </li>
-                   
                     </ul>
                 </div>
             </div>
@@ -82,8 +80,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nom']) && !empty($_POS
     <div class="d-flex justify-content-between align-items-center">
 <div class="myText col-6">
     <?php if(isset($zooo)) {  ?>
-    <div><h1>Bienvenue dans <?= $zooo ? $zooo->getName() : "..." ?></h1></div>
-   <div><h6>je m'appelle <?php echo $employe->getNameEmployee() ?> responsable de zoo</h6></div> 
+    <div><h1>Bienvenue dans "<?= $zooo ? $zooo->getName() : "..." ?>".</h1></div>
+   <div><h6>je m'appelle "<?php echo $employe->getNameEmployee() ?>" responsable de zoo</h6></div> 
    <div><img src="./images/<?= $employe->getSexe()?>.webp" alt=""><a href="./Interfaces/InterfaceEnclos.php"><img class="w-25"src="./images/next.gif" alt=""></a>
 </div>
    <?php } ?>
@@ -92,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nom']) && !empty($_POS
 <div class="col-6">
 </div>
 </div>
-    <script src="./main.js"></script>
+ 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 
