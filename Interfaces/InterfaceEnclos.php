@@ -14,22 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['type']) && !empty($_PO
     // var_dump($myEnclos);
 }
 $myEnclos=$enclo->findAll();
-// employee
-// if(isset($_POST['nettoyer']) && isset($_POST['id_enclos'])){
-//     $enclos= $enclo-> find($_POST['id_enclos']);
-//     $employe=[
-//         'nom'=>$_POST['nomEmployer'],
-//         'age'=>$_POST['nomZoo'],
-//         'sexe'=>$_POST['sexe'],
-//     ];
-//     header('Location: ../class/Employee');
-//     }
-//     $employ=new EmployeManager($db);
-//     $newemployee=new Employee($employe);
-//  $employ->find($_SESSION['employee_id']);
-//     $newemployee-> cleanEnclos($enclos);
 
-// $enclo->update($myEnclo);  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -87,8 +72,8 @@ $myEnclos=$enclo->findAll();
 <div class="row mt-5">
 
  <?php foreach($myEnclos as $myEnclo){?>
-    <div class="card col-4" style="width: 18rem;">
-  <img src="../images/<?php echo $myEnclo->getNom()?>.webp" class="card-img-top" alt="...">
+    <div class="card col-4 mx-auto" style="width: 18rem;">
+  <img class=" " src="../images/<?php echo $myEnclo->getNom()?>.webp" class="card-img-top" alt="...">
     <div class="card-body bg-success">
     <h5 class="card-title ">Type: <?php echo $myEnclo->getNom()?></h5>
     <h5 class="card-title">Propreté: <?php echo $myEnclo->getPropreté()?></h5>

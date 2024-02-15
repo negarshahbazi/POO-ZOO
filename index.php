@@ -86,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nom']) && !empty($_POS
                 <div>
                     <h6>je m'appelle "<?php echo $employe->getNameEmployee() ?>" responsable de zoo</h6>
                 </div>
-                <div><img src="./images/<?= $employe->getSexe() ?>.webp" alt=""><a href="./Interfaces/InterfaceEnclos.php"><img class="w-25" src="./images/next.gif" alt=""></a>
+                <div><img class="girl"src="./images/<?= $employe->getSexe() ?>.webp" alt=""><a href="./Interfaces/InterfaceEnclos.php"><img class="w-25 flesh" src="./images/next.gif" alt=""></a>
                 </div>
             <?php } ?>
         </div>
